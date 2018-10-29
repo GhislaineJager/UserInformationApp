@@ -1,24 +1,22 @@
 <!DOCTYPE html>
 <html>
 	<head>
-	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" type="text/css" href="/public/styles/style.css">
 	</head>
 
 	<body>
 
-		// nav bar
 		<ul>
-	  	<li><a href="./index">Home</a></li>
+	  	<li><a href="./">Home</a></li>
 	  	<li><a href="./search">Search</a></li>
 	  	<li><a href="./addUser">Add new user</a></li>
 		</ul>
 
-		// found matches based on input
 		<h1> Results </h1>
 	    <p> Found matches are: </p>
 
-	      <% if (result.length > 0) { %>
-	        <% result.forEach(function (usersname){ %>
+	      <% if (output.length > 0) { %>
+	        <% output.forEach(function (usersname){ %>
 
 	            <p>First Name: <%= usersname.firstname %></p>
 	            <p>Last Name: <%= usersname.lastname %></p>

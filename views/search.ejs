@@ -1,18 +1,17 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" type="text/css" href="/public/styles/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   </head>
   <body>
 
-    //nav bar
     <ul>
-      <li><a href="./index">Home</a></li>
+      <li><a href="./">Home</a></li>
       <li><a href="./search">Search</a></li>
       <li><a href="./addUser">Add new user</a></li>
     </ul>
 
-    // search bar to find user
     <form action='/search' method='post' autocomplete="off">
     	Enter user name:<br>
     	<input type='text' name='input' id='input' value=''><br>
@@ -25,17 +24,27 @@
 </html>
 
 <script>
+var keyOld = 0
 
-$('#input').keyup(function() {
+$(document).ready(function() {
+    $('#input').keyup(function() {
+        const keyNew = new Date ();
+        if (keyNew - keyOld > 300) {
 
-  var insert = $(this).val();
+        var input = $(this).val();
 
-  $('#result').empty();
-  $.post('/autocomplete', {insert:input}, function(response, status) {
-    for (var i = 0; i < response.length; i++) {
-      $('#result').append('<li>'+ response[i].firstname + " " + response[i].lastname +' </li>')
+        $('#result').empty();
+        $.post('/autocomplete', {input:input}, function (response, status) {
+            for (var i = 0; i < response.length; i++){
+                $('#result').append('<li> '+ response[i].firstname +" "+ response[i].lastname +' </li>')
+            }
+        })
+
+        keyOld = keyNew
+    } else {
+        console.log('Slow down buddy :)')
     }
-  })
-}
+});
+});
 
-)
+</script>

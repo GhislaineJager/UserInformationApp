@@ -10,6 +10,7 @@ app.set('view engine', 'ejs');
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.urlencoded({ extended: false}));
+app.use('/public', express.static(__dirname + '/public'));
 
 
 //Route 1: get request that renders all your users
@@ -38,13 +39,13 @@ app.post('/search', function(req, res) {
 		const output = [];
 
 			for (let i = 0; i < parsedData.length; i++) {
-				if (parsedData[i].firstname === request.body.input
-					|| parsedData[i].lastname === request.body.input) {
+				if (parsedData[i].firstname === req.body.input
+					|| parsedData[i].lastname === req.body.input) {
 					output.push(parsedData[i]);
-					console.log(result);
+					console.log(output);
 				}
 			}
-		res.render('matches', {result});
+		res.render('matches', {output});
 	})
 });
 
@@ -65,16 +66,16 @@ app.post('/addUser', function (req, res) {
 		let parsedData = JSON.parse(data);
 
 		let newUser = { //adding a new user to the list
-			firstname: request.body.inputfirst,
-			lastname: request.body.inputlast,
-			email: request.body.inputemail,
+			firstname: req.body.inputfirst,
+			lastname: req.body.inputlast,
+			email: req.body.inputemail,
 		}
 //push new user to the array in .json file
 		parsedData.push(newUser);
 
-		let newUser = JSON.stringify(parsedData);
+		let json = JSON.stringify(parsedData);
 
-		fs.writeFile('./users.json', newUser, (err) => {
+		fs.writeFile('./users.json', json, (err) => {
 			if (err) {throw err}
 		})
 	})
@@ -90,10 +91,10 @@ app.post('/autocomplete', function(req, res) {
 		const output = [];
 
 			for (let i = 0; i < parsedData.length; i++) {
-				if (parsedData[i].firstname === request.body.input
-					|| parsedData[i].lastname === request.body.input) {
+				if (parsedData[i].firstname === req.body.input
+					|| parsedData[i].lastname === req.body.input) {
 					output.push(parsedData[i]);
-					console.log(result);
+					console.log(output);
 				}
 			}
 		res.send(output);
