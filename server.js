@@ -81,6 +81,25 @@ app.post('/addUser', function (req, res) {
 	res.redirect('/');
 });
 
+//Autocomplete
+app.post('/autocomplete', function(req, res) {
+	fs.readFile('./users.json', (err,data) => {
+		if (err) {throw err}
+
+		const parsedData = JSON.parse(data);
+		const output = [];
+
+			for (let i = 0; i < parsedData.length; i++) {
+				if (parsedData[i].firstname === request.body.input
+					|| parsedData[i].lastname === request.body.input) {
+					output.push(parsedData[i]);
+					console.log(result);
+				}
+			}
+		res.send(output);
+	})
+});
+
 
 //Running server:
 app.listen (port, () => console.log(`Listening on port: ${port}`));

@@ -15,9 +15,27 @@
     // search bar to find user
     <form action='/search' method='post' autocomplete="off">
     	Enter user name:<br>
-    	<input type='text' name='input' value=''><br>
+    	<input type='text' name='input' id='input' value=''><br>
     	<input type='submit' value='Submit'>
     </form>
 
+    <ul class='suggestions-list' id='result'></ul> //lijst waar de suggesties in voorkomen van autocomplete
+
   </body>
 </html>
+
+<script>
+
+$('#input').keyup(function() {
+
+  var insert = $(this).val();
+
+  $('#result').empty();
+  $.post('/autocomplete', {insert:input}, function(response, status) {
+    for (var i = 0; i < response.length; i++) {
+      $('#result').append('<li>'+ response[i].firstname + " " + response[i].lastname +' </li>')
+    }
+  })
+}
+
+)
