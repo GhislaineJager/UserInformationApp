@@ -1,10 +1,116 @@
 <!DOCTYPE html>
+<html lang="en">
 <html>
   <head>
     <link rel="stylesheet" type="text/css" href="/public/styles/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+    body {
+    margin:0;
+    padding:0;
+    background:url(https://data.whicdn.com/images/130989744/original.jpg);
+    background-size:cover;
+}
+.search {
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    width:80px;
+    height:80px;
+    background:#fff;
+    box-shadow:0 5px 20px rgba(0,0,0,.5);
+    border-radius:4px;
+    transition:width .5s;
+    overflow:hidden;
+}
+.search.active {
+    width:600px;
+}
+.search input {
+    position:absolute;
+    top:10px;
+    left:10px;
+    width:calc(100% - 90px);
+    height:60px;
+    border:none;
+    outline:none;
+    font-size:36px;
+    padding:0 10px;
+    color:#666;
+
+}
+.search.active .icon {
+    background:#ff355a;
+}
+.icon {
+    position:absolute;
+    top:10px;
+    right:10px;
+    width:60px;
+    height:60px;
+    cursor:pointer;
+    transition:.5s;
+    border-radius:4px;
+}
+.search.active .icon:before {
+    content:'';
+    position:absolute;
+    top:7px;
+    left:13px;
+    width:18px;
+    height:30px;
+    background:transparent;
+    border:none;
+    border-right:2px solid #fff;
+    border-radius:0;
+    transition:.5%;
+    transform:rotate(45deg);
+}
+.search.active .icon:after {
+    content:'';
+    position:absolute;
+    top:20px;
+    left:13px;
+    width:18px;
+    height:30px;
+    background:transparent;
+    border:none;
+    border-right:2px solid #fff;
+    border-radius:0;
+    transition:.5%;
+    transform:rotate(-45deg);
+}
+.icon:before {
+    content:'';
+    position:absolute;
+    top:12px;
+    left:12px;
+    width:24px;
+    height:24px;
+    background:transparent;
+    border:2px solid #262626;
+    border-radius:50%;
+    transition:.5%;
+}
+.icon:after {
+    content:'';
+    position:absolute;
+    top:25px;
+    left:35px;
+    width:18px;
+    height:18px;
+    background:transparent;
+    border-left:2px solid #262626;
+    border-radius:0;
+    transform:rotate(-45deg);
+    transition:.5%;
+}
+  </style>
   </head>
   <body>
+
+
 
     <ul>
       <li><a href="./">Home</a></li>
@@ -12,18 +118,23 @@
       <li><a href="./addUser">Add new user</a></li>
     </ul>
 
-    <form action='/search' method='post' autocomplete="off">
-    	Enter user name:<br>
-    	<input type='text' name='input' id='input' value=''><br>
-    	<input type='submit' value='Submit'>
-    </form>
-
-    <ul class='suggestions-list' id='result'></ul> //lijst waar de suggesties in voorkomen van autocomplete
-
+    <div class="search">
+      <form action='/search' method='post' autocomplete="off">
+        <input type="text" name='input' id='input' placeholder="Who are you looking for?">
+        <div class="icon"></div>
+      </form>
+      <ul class='suggestions-list' id='result'></ul>
+    </div>
   </body>
 </html>
 
 <script>
+$(document).ready(function(){
+    $('.icon').click(function(){
+        $('.search').toggleClass('active');
+    });
+});
+
 var keyOld = 0
 
 $(document).ready(function() {

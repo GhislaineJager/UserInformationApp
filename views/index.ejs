@@ -1,10 +1,59 @@
 <!DOCTYPE html>
+<html lang="en">
 <html>
 	<head>
-	<link rel="stylesheet" type="text/css" href="/public/styles/style.css">
+		<link rel="stylesheet" type="text/css" href="/public/styles/style.css">
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		<link href="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+		<style type="text/css">
+			body{
+		background:#dfebf8;
+}
+.main-box.no-header {
+		padding-top: 20px;
+}
+.main-box {
+		background: #FFFFFF;
+		-webkit-box-shadow: 1px 1px 2px 0 #dfebf8;
+		-moz-box-shadow: 1px 1px 2px 0 #dfebf8;
+		-o-box-shadow: 1px 1px 2px 0 #dfebf8;
+		-ms-box-shadow: 1px 1px 2px 0 #dfebf8;
+		box-shadow: 1px 1px 2px 0 #dfebf8;
+		margin-bottom: 16px;
+		-webikt-border-radius: 3px;
+		-moz-border-radius: 3px;
+		border-radius: 3px;
+}
+
+.user-list tbody td>img {
+		position: relative;
+		max-width: 50px;
+		float: left;
+		margin-right: 15px;
+}
+
+.table thead tr th {
+		text-transform: uppercase;
+		font-size: 0.875em;
+}
+.table thead tr th {
+		border-bottom: 2px solid #dfebf8;
+}
+
+.table tbody tr td {
+		font-size: 0.875em;
+		vertical-align: middle;
+		border-top: 1px solid #dfebf8;
+		padding: 12px 8px;
+}
+		</style>
 	</head>
 
 	<body>
+
+	<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
 
 		<ul>
 			<li><a href="./">Home</a></li>
@@ -12,16 +61,57 @@
 			<li><a href="./addUser">Add new user</a></li>
 		</ul>
 
-	  <h1> Users Page </h1>
-	    <p> All users </p>
+		<hr>
+		<div class="container bootstrap snippet">
+		    <div class="row">
+		        <div class="col-lg-12">
+		            <div class="main-box no-header clearfix">
+		                <div class="main-box-body clearfix">
+		                    <div class="table-responsive">
 
-	        <% parsedData.forEach (function (usersname){ %>
 
-	            <p>First Name: <%= usersname.firstname %></p>
-	            <p>Last Name: <%= usersname.lastname %></p>
-	            <p>Email: <%= usersname.email %></p> <br>
+		                        <table class="table user-list">
+		                            <thead>
+		                                <tr>
+		                                <th><span></span></th>
+		                                <th><span>First name</span></th>
+		                                <th><span>Last name</span></th>
+		                                <th><span>Email</span></th>
+		                                <th>&nbsp;</th>
+		                                </tr>
+		                            </thead>
+		                            <tbody>
 
-	    <% }); %>
+		                              <% parsedData.forEach (function (usersname){ %>
+																	<tr>
+		                                    <td>
+		                                        <img src="https://museumcontact.nl/system/files/profile_image/user-icon-placeholder.png" alt="">
+		                                    </td>
+		                                    <td>
+		                                      <%= usersname.firstname %>
+		                                    </td>
+		                                    <td>
+		                                      <%= usersname.lastname %></td>
+		                                    <td>
+		                                      <%= usersname.email %>
+		                                    </td>
 
+																	</tr>
+		                              <% }); %>
+
+
+
+		                            </tbody>
+		                        </table>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+
+		<script src="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+		</body>
 	</body>
 </html>
